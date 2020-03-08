@@ -1,0 +1,129 @@
+﻿@model iXOnlineWeb.Data.DataAccess.Book
+<div class="row">
+    <a href="@Url.Action("Index","Books")" class="btn btn-outline-primary">
+        <i class="fa-arrow-alt-circle-left"></i><span>Back</span>
+    </a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="@Url.Action("Edit","Books",new { id = Model.BookId})" class="btn btn-outline-primary">
+        <i class="fa-arrow-alt-circle-left"></i><span>Update</span>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                Book Image:
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="~/Content/Images/images (2).png" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                Book Details
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><b>Title:</b>&nbsp;&nbsp;@Html.DisplayFor(model => model.BookTitle)</h5>
+                <p class="card-text"> <b>Book Description:</b>&nbsp;&nbsp; @Html.DisplayFor(model => model.BookDescription)</p>
+                <p class="card-text"> <b>ISBN Number:</b>&nbsp;&nbsp; @Html.DisplayFor(model => model.ISBN)</p>
+                <p class="card-text"> <b>Language:</b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Language)</p>
+                <p class="card-text"> <b>Published Date:</b> &nbsp;&nbsp;@Html.DisplayFor(model => model.PublishedDate)</p>
+                <p class="card-text"> <b>Book Edition:</b> &nbsp;&nbsp;@Html.DisplayFor(model => model.Edition)</p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Book ratings
+            </div>
+            <div class="card-body">
+                @Html.Partial("_StarRating", null)
+                <input type="number" name="ValeOfStar" id="ValeOfStar" hidden />
+                <button type="button" class="btn btn-success" onclick="GetRating();">Save Rating</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Book Reviews:
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"> @Html.DisplayFor(model => model.BookTitle)</h5>
+                <p class="card-text">   @Html.DisplayFor(model => model.BookDescription)</p>
+                <a href="#" class="btn btn-outline-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Average rating Information:
+
+    </div>
+    <div class="card-body">
+        <div class="text-center">
+            @Html.Partial("_RatingReview", null)
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/RatingProcess.js"></script>
+    <script>
+        function GetRating() {
+            var count = 0;
+            if ($('#ValeOfStar').val() == 0) {
+                toastr.error('Please select a rating');
+                count++;
+            }
+            if (count == 0) {
+
+            $.ajax({
+                type: 'Post',
+                dataType: 'Json',
+                data: {
+                    RatingNumber: $('#ValeOfStar').val(),
+                    BookId: @Model.BookId,
+                    MemberId: $('#MemberId').val(),
+                  
+                },
+                url: '/Rating/InsertRatedBook',
+                success: function (data) {
+                    if (data.Result == "Success")
+                    {
+                        document.location.reload(true);
+                        toastr.success('This book has successfully been rated.');
+                        Window.location.href('/Books/Index')
+                    }
+                    else
+                    {
+
+                        alert('Error' + data.Message);
+                    }
+                },
+                error: function (data) {
+                    alert('Error' + data.Message);
+                }
+            });
+            }
+        }
+    </script>
+}

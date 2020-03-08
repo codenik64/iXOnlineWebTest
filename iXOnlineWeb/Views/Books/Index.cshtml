@@ -1,0 +1,50 @@
+﻿@model IEnumerable<iXOnlineWeb.Data.DataAccess.Book>
+
+<div>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/TestCSS.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</div>
+
+<div class="module-inner">
+    <div class="content-utilities">
+        <div class="page-nav">
+                <div class="btn-group" role="group">
+                    <button class="active btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add Book" id="Add-Icon" onclick="location.href='@Url.Action("Create", "Books")'" ><i class="fa fa-6x fa-plus-circle" ></i>&nbsp;</button>
+                </div>
+        <div class="drive-wrapper drive-grid-view">
+            <div class="grid-items-wrapper">
+
+                @foreach (var item in Model)
+                {
+                    
+                    <div class="drive-item module text-center">
+                        <div class="drive-item-inner module-inner">
+                            <div class="drive-item-title"><a href="@Url.Action("Details","Books",new {id=item.BookId})"><b>@Html.DisplayFor(modelItem => item.BookTitle)</b> </a></div>
+                            <div class="drive-item-thumb">
+                                <a href="@Url.Action("Details","Books",new {id=item.BookId})"><i class="fa fa-file-text-o text-primary"></i></a>
+                            </div>
+                        </div>
+                        <div class="drive-item-footer module-footer">
+                            <ul class="utilities list-inline">
+                              Rating Average :  @item.AverageRating
+                                @*@Html.Partial("_StarRating", null)*@
+
+                              
+                                <li><a href="@Url.Action("Delete","Books",new {id=item.BookId})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
