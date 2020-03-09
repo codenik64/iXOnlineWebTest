@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace iXOnlineWeb.Controllers
 {
+    [Authorize]
     public class RatingController : Controller
      
     {
@@ -27,7 +28,7 @@ namespace iXOnlineWeb.Controllers
             return View(FindById);
         }
 
-        // GET: Rating/Create
+      
         public ActionResult Create()
         {
             return View();
@@ -43,48 +44,10 @@ namespace iXOnlineWeb.Controllers
             return Json(new { Result = "Success", Message = "Updated Book Successfully" }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Rating/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+      
 
-        // POST: Rating/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+       
+    
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Rating/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Rating/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

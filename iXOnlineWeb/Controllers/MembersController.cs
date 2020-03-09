@@ -15,7 +15,7 @@ namespace iXOnlineWeb.Controllers
     [Authorize]
     public class MembersController : Controller
     {
-        private iXOnlineWebEntities db = new iXOnlineWebEntities();
+      
         IMember MemberAccess = MemberFactory.CreateMemberLibrary();
 
      
@@ -59,10 +59,10 @@ namespace iXOnlineWeb.Controllers
             return View(member);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Members member)
+        public ActionResult Edit(Members member)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,18 @@ namespace iXOnlineWeb.Controllers
             return View(member);
         }
 
-       
+        public JsonResult UpdateMember(Members member)
+        {
+            if (ModelState.IsValid)
+            {
+                MemberAccess.UpdateMember(member);
+
+            }
+            return Json(new { Result = "Success", Message = "Saved Book Successfully" }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public ActionResult Delete(int id)
         {
             var member = MemberAccess.FindById(id);
@@ -88,13 +99,6 @@ namespace iXOnlineWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

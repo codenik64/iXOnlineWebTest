@@ -1,0 +1,75 @@
+﻿@model IEnumerable<iXOnlineWeb.Data.DataAccess.Members>
+<div class="align-self-lg-center">
+    <div class="col-sm-10">
+        <div class="card">
+            <div class="card-header">
+                Members:
+            </div>
+            <div class="card-body">
+                <p>
+                    <a href="@Url.Action("Create","Members")" class="btn btn-outline-primary">Add Member</a>
+                </p>
+                <table class="cell-border table table-hover " id="myData" style="width:100% " cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MemberName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MemberSurname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ContactNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Gender)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsActive)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MemberName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MemberSurname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gender)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsActive)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit","Members", new { id = item.MemberId })" class="btn btn-outline-primary">Update</a> |
+                                    <a href="@Url.Action("Details","Members", new { id = item.MemberId })" class="btn btn-outline-primary">Details</a>|
+                                    <a href="@Url.Action("Delete","Members", new { id = item.MemberId })" class="btn btn-outline-primary">Remove</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+

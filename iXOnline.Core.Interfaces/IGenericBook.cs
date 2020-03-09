@@ -11,6 +11,7 @@ namespace iXOnline.Core.Interfaces
     {
         IQueryable<Book> GetBooks();
         IQueryable<Book> GetAllBooks();
+        IQueryable<Book> Search(string BookName, string ISBN, string Author, string Language);
         Book FindById(int id);
         void InsertBook(Book bookEntity);
         void UpdateBook(Book bookEntity);

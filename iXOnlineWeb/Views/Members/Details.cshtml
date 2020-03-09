@@ -1,66 +1,52 @@
 ﻿@model iXOnlineWeb.Data.DataAccess.Members
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MemberName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberSurname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MemberSurname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContactNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-    </dl>
+<div class="row">
+    <a href="@Url.Action("Index","Members")" class="btn btn-outline-primary">
+        <i class="fa-arrow-alt-circle-left"></i><span>Back</span>
+    </a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="@Url.Action("Edit","Members",new { id = Model.MemberId})" class="btn btn-outline-primary">
+        <i class="fa-arrow-alt-circle-left"></i><span>Update</span>
+    </a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<br/>
+<br/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                Member Image:
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="~/Content/Images/images (1).png" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                Member Details:
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    @Html.Partial("_Details", null);
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    Book Image:
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        @Html.Partial("_MemberDetails", null);
+                    </div>
+                </div>
+            </div>
+        </div>*@
+</div>

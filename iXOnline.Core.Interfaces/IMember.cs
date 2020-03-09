@@ -12,6 +12,7 @@ namespace iXOnline.Core.Interfaces
         IQueryable<Members> GetData();
         IQueryable<Members> GetAll();
          void Insert(Members Member);
+         void AccountViewModelInsert(Members Member);
          void UpdateMember(Members members);
          void RemoveMember(int Id);
          Members FindById(int Id);

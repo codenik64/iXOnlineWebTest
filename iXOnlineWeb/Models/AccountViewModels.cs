@@ -70,6 +70,26 @@ namespace iXOnlineWeb.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Member Name")]
+        [StringLength(50, ErrorMessage = "The Name field can only be 50 characters long")]
+        public string MemberName { get; set; }
+
+        [Required]
+        [Display(Name = "Member Surname")]
+        [StringLength(50, ErrorMessage = "The Surname field can only be 50 characters long")]
+        public string MemberSurname { get; set; }
+
+        [Required]
+        [Display(Name = "Contact Details")]
+        [StringLength(10, ErrorMessage = "The Contact field can only be 10 characters long")]
+        public string ContactNumber { get; set; }
+
+        [Required]
+        [StringLength(10, ErrorMessage = "The Gender field can only be 10 characters long")]
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

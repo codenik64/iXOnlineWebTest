@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using iXOnlineWeb.Models;
+using iXOnlineWeb.Data.DataAccess;
+using iXOnline.Core.Interfaces;
+using iXOnlineWeb.Core.FactoryLayer;
 
 namespace iXOnlineWeb.Controllers
 {
@@ -17,6 +20,7 @@ namespace iXOnlineWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        IMember MemberAccess = MemberFactory.CreateMemberLibrary();
 
         public AccountController()
         {
@@ -79,7 +83,7 @@ namespace iXOnlineWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,17 +155,13 @@ namespace iXOnlineWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                AccountModelInsert(model);
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -170,6 +170,21 @@ namespace iXOnlineWeb.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public void AccountModelInsert(RegisterViewModel model)
+        {
+            Members member = new Members
+            {
+                MemberName = model.MemberName,
+                MemberSurname = model.MemberSurname,
+                ContactNumber = model.ContactNumber,
+                Gender = model.Gender,
+                EmailAddress = model.Email,
+                IsActive = true
+            };
+
+            MemberAccess.AccountViewModelInsert(member);
         }
 
         //

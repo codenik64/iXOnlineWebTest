@@ -47,18 +47,9 @@
             msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
         }
         responseMessage(msg);
-        GetratingCountValue(ratingValue);
-       
-
+     
     });
-
-   
 });
-
-function GetratingCountValue(Value) {
-    var count = Value;
-    return count;
-}
 
 function responseMessage(msg) {
     $('.success-box').fadeIn(200);

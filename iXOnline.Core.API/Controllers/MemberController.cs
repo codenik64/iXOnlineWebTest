@@ -11,30 +11,30 @@ using System.Web.Http;
 namespace iXOnline.Core.API.Controllers
 {
     [Authorize]
-    public class RatingController : ApiController
+    public class MemberController : ApiController
     {
-        IBookRating genericRating = BookRatingFactory.CreateRatingLibrary();
+        IMember genericMember = MemberFactory.CreateMemberLibrary();
 
 
         public IHttpActionResult Get()
         {
-            return Ok(new { results = genericRating.GetAllRatings() });
+            return Ok(new { results = genericMember.GetAll() });
         }
 
 
         public HttpResponseMessage Get(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, genericRating.FindById(id));
+            return Request.CreateResponse(HttpStatusCode.OK, genericMember.FindById(id));
         }
 
 
 
-        public HttpResponseMessage Insert(BookRating bookRating)
+        public HttpResponseMessage Insert(Members member)
         {
             try
             {
-                genericRating.InsertRating(bookRating);
-                return Request.CreateResponse(HttpStatusCode.OK, "Successfully rated book");
+                genericMember.Insert(member);
+                return Request.CreateResponse(HttpStatusCode.OK, "Successfully inserted member");
             }
             catch (Exception ex)
             {
@@ -43,19 +43,17 @@ namespace iXOnline.Core.API.Controllers
         }
 
 
-        public HttpResponseMessage Update(BookRating bookRating)
+        public HttpResponseMessage Update(Members member)
         {
             try
             {
-                genericRating.UpdateRating(bookRating);
-                return Request.CreateResponse(HttpStatusCode.OK, "Successfully updated book rating");
+                genericMember.UpdateMember(member);
+                return Request.CreateResponse(HttpStatusCode.OK, "Successfully updated member");
             }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex.Message.ToString());
             }
         }
-
     }
-        
 }

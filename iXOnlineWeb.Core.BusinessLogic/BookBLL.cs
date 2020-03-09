@@ -98,6 +98,34 @@ namespace iXOnlineWeb.Core.BusinessLogic
             }
         }
 
+
+        public IQueryable<Book> Search(string BookTitle , string ISBN , string Author, string Language)
+        {
+            List<Book> BookSearch = new List<Book>();
+            if (!String.IsNullOrEmpty(BookTitle)) 
+            {
+                BookSearch = GetAllBooks().Where(x => x.BookTitle.Contains( BookTitle ) || BookTitle == null).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(ISBN))
+            {
+                BookSearch = GetAllBooks().Where(x => x.ISBN.Contains(ISBN) || ISBN == null).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(Author))
+            {
+                BookSearch = GetAllBooks().Where(x => x.Author.Contains(Author) || Author == null).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(Language))
+            {
+                BookSearch = GetAllBooks().Where(x => x.Language.Contains(Language) || Language == null).ToList();
+            }
+
+            return BookSearch.ToList().AsQueryable();
+        }
+
+
         public void RemoveBook(int Id)
         {
             try

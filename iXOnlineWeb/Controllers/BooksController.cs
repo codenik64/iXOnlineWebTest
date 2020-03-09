@@ -15,7 +15,7 @@ namespace iXOnlineWeb.Controllers
     [Authorize]
     public class BooksController : Controller
     {
-        private iXOnlineWebEntities db = new iXOnlineWebEntities();
+        
         private IGenericBook genericBook = BookFactory.CreateBooksLibrary();
     
         public ActionResult Index()
@@ -29,6 +29,12 @@ namespace iXOnlineWeb.Controllers
         {
             var book = genericBook.FindById(id);
             return View(book);
+        }
+
+        public ActionResult Search(string BookTitle, string ISBN, string Author, string Language)
+        {
+            var bookList = genericBook.Search(BookTitle, ISBN, Author, Language);
+            return View(bookList);
         }
 
 
@@ -81,13 +87,5 @@ namespace iXOnlineWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

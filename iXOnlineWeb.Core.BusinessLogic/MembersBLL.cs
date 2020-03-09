@@ -75,6 +75,20 @@ namespace iXOnlineWeb.Core.BusinessLogic
             }
         }
 
+        public void AccountViewModelInsert(Members Member)
+        {
+            try
+            {
+                MemberRepo.Insert(Member);
+                MemberRepo.Save();
+            }
+            catch (Exception ex )
+            {
+
+                Error.InsertError(ex);
+            }
+        }
+
         public void UpdateMember(Members members)
         {
             try
